@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block title %} Rendezvous-Add Post{% endblock %}
 {% block content %}
+{% if user.is_authenticated %}
 <h1>Add Post</h1>
 <br/>
 <br/>
@@ -10,6 +11,10 @@
         {{form.as_p}}
         <button class="btn btn-dark">Post</button>
 </div>
+
+{% else %}
+
+Not Authorized
 
 
 {% endblock %}
