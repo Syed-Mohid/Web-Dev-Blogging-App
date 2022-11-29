@@ -1,4 +1,6 @@
-
+{% extends 'base.html' %}
+{% block content %}
+{% block title %} Rendezvous-{{post.title}} {% endblock %}
 
 <h1>{{post.title}}</h1>
 <small>By: {{post.author}}</small><br/>
@@ -8,4 +10,6 @@
 
 <br/><br/>
 
-<a href="{% url 'home' %}">Go Trial BACK</a>
+<a href="{% url 'home' %}" class="btn btn-warning">BACK</a>
+
+{% endblock %}
