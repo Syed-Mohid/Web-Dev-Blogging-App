@@ -3,16 +3,22 @@
 {% block content %}
 
 {% if user.is_authenticated %}
-<h1>Update Post</h1>
-<br/>
-<br/>
-<div class="form-group">
-    <form method="POST">
-        {% csrf_token %}
-        {{form.as_p}}
-        <button class="btn btn-dark">Update</button>
-</div>
-{% else %}
+
+{% if user.id == post.author.id %}
+
+        <h1>Update Post</h1>
+        <br/>
+        <br/>
+        <div class="form-group">
+            <form method="POST">
+                {% csrf_token %}
+                {{form.as_p}}
+                <button class="btn btn-dark">Update</button>
+        </div>
+        {% else %}
+            Not Authorized to Edit
+        {% endif %}
+{% endif %}
 
 Not Authorized to Make Edits
 

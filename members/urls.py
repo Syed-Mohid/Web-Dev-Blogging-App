@@ -7,6 +7,5 @@ from .views import UserRegisterView
 urlpatterns = [ 
     path('regiser/', UserRegisterView.as_view(), name='register'),
     
-    
-    
+     
 ]   
