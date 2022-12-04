@@ -1,13 +1,31 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
 {% block title %} Rendezvous-{{post.title}} {% endblock %}
 
 
 <h1>{{post.title}}</h1>
 {{post.category}}
-<small>By: {{post.author}} (Uploaded on {{post.post_date}})</small><br/>
+<small>By: <a href = "{% url 'show_profile' post.author.profile.id %}">{{post.author}}</a><br/>
+    
+{% if post.author.profile.profile_pic %}
+    <img src ="{{ post.author.profile.profile_pic.url }}" width="50" height="50" class = "rounded-circle">
+
+{% else %}
+
+<img src ="{% static 'ProBlog/images/default.jpg' %}" width="50" height="50" class = "rounded-circle">
+
+
+    
+    (Uploaded on {{post.post_date}})</small><br/>
 <hr>
 <br/>
+
+
+<img src="{{ post.thumbnail.url}}">
+
+{% endif %}
+
 {{post.body|safe}}
 <br/>
 {% if user.is_authenticated %}
@@ -21,5 +39,16 @@
 {% endif %}
 
 <a href="{% url 'home' %}" class="btn btn-warning">BACK</a>
+
+<br/><br/>
+<hr>
+<br/>
+<form action = "{% url 'like_post' post.pk %}" method ="POST" >
+    {% csrf_token %}
+    <button type = "submit", name="post_id", value = "{{ post.id }}", class ="btn-primary
+    btn-sm">Like</button> - {{ post.likes.count }}
+    Likes
+</form>
+
 
 {% endblock %}
