@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path
 #from . import views
-from .views import HomeView, ArticleDetailView , AddPostView , UpdatePostView , DeletePostView, AddCategoryView , CategoryView , LikeView
+from .views import HomeView, ArticleDetailView , AddPostView , UpdatePostView , DeletePostView, AddCategoryView , CategoryView , LikeView , AddCommentView
 
 urlpatterns = [
     #path('',views.home, name='home'),
@@ -13,5 +13,6 @@ urlpatterns = [
     path('add_category/', AddCategoryView.as_view(), name='add_category'),
     path('category/<str:cats>/',CategoryView, name='category'),
     path('like/<int:pk>', LikeView, name='like_post'),
+     path('article/<int:pk>/comment/', AddCommentView.as_view(), name='add_comment'),
 
 ]   
