@@ -6,7 +6,7 @@
 
 <h3 class="blog-post-title mb-1">{{post.title}}</h3>
 <strong>Category:  </strong><a href="{% url 'category' post.category %}">{{post.category}}</a>
-<br/><small><strong>By:  </strong> <a href = "{% url 'show_profile' post.author.profile.id %}">{{post.author}}</a><br/>
+<br/><small>(Uploaded on {{post.post_date}})</small><br/>
     
 {% if post.author.profile.profile_pic %}
     <img src ="{{ post.author.profile.profile_pic.url }}" width="50" height="50" class = "rounded-circle">
@@ -14,15 +14,12 @@
 {% else %}
 
 <img src ="{% static 'ProBlog/images/default.jpg' %}" width="50" height="50" class = "rounded-circle">
-
-
-    
-    (Uploaded on {{post.post_date}})</small><br/>
+<small><strong>By:  </strong> <a href = "{% url 'show_profile' post.author.profile.id %}">{{post.author}}</a>
 <hr>
 <br/>
 
 
-<img src="{{ post.thumbnail.url}}">
+<img src="{{ post.Thumbnail.url}}">
 
 {% endif %}
 
