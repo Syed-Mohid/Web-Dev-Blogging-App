@@ -1,24 +1,39 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Post</h1>
+<main class="container">
+    <div class="p-4 p-md-5 mb-4 rounded text-bg-dark">
+      <div class="col-md-10 px-0">
+        <h1 class="display-5 fst-italic">Welcome To Rendezvous</h1>
+        <p class="lead my-3">Rendezvous translates to meeting at a Specific Point. Rendezvous is a Blogging Platform that allows Indidividuals to share their ideas on a common platform where people can come  , listen, share and "Meet"</p>
+      </div>
+    </div>
+  
+    <h1 class="display-5 fst-italic">Blog Posts</h1>
+<hr>
+<br/>
 <ul>
 {% for post in object_list %}
 
-   <li><a href="{% url 'article_details' post.pk %}"> {{post.title}}</a>-<a href="{% url 'category' post.category %}">{{post.category}}</a>-{{post.author}} 
+   <h3 class="blog-post-title mb-1">{{post.title}}</h3>
+   <h8 class="display-9 fst-italic">{{post.snippet}}</h8><br/>
+    <strong>Category:  </strong><a href="{% url 'category' post.category %}">{{post.category}}</a>
+    <br/>By:  {{post.author}} 
 
     {% if user.is_authenticated %}
 
     {% if user.id == post.author.id %}
 
         <a href="{% url 'update_post' post.pk %}">Edit</a><br/>
-        {{post.body|slice:":100"|safe}}
+        
         <a href="{% url 'delete_post' post.pk %}">Delete</a></li>
-
+        
     {% endif %}
 
     {% endif %}
+    <h7>{{post.body|slice:":100"|safe}}...</h7><a href="{% url 'article_details' post.pk %}"><h7>Continue Reading</h7></a>
     <br/>
-    {{post.snippet}}
+    <br/><br/>
+    <hr>
 {% endfor %}
 </ul>
 
