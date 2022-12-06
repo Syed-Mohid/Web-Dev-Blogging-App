@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h1> User Profile</h1>
+
+<div class="card mb-3" style="max-width: 540px;">
+    <div class="row g-0">
+      <div class="col-md-4">
+    {% if page_user.profile_pic %}
+    <img src ="{{ page_user.profile_pic.url }}" width="200" height="200" >
+
+    {% else %}
+
+    <img src ="{% static 'ProBlog/images/default.jpg' %}" width="200" height="200">
+
+    {% endif %}
+
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">{{ page_user }}</h5>
+          <p class="card-text">{{ page_user.bio }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
