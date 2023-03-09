@@ -1,11 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% block title %}  {% endblock %}
 
 
-<h1>{{post.title}}</h1>
-<small>By: {{post.author}}</small><br/>
+<h3 class="blog-post-title mb-1">{{post.title}}</h3>
+<strong>Category:  </strong><a href="{% url 'category' post.category %}">{{post.category}}</a>
+<br/><small>(Uploaded on {{post.post_date}})</small><br/>
+    
+{% if post.author.profile.profile_pic %}
+    <img src ="{{ post.author.profile.profile_pic.url }}" width="50" height="50" class = "rounded-circle">
+
+{% else %}
+
+<img src ="{% static 'ProBlog/images/default.jpg' %}" width="50" height="50" class = "rounded-circle">
+<small><strong>By:  </strong> <a href = "{% url 'show_profile' post.author.profile.id %}">{{post.author}}</a>
 <hr>
 <br/>
-{{post.body}}
+
+
+<img src="{{ post.Thumbnail.url}}">
+
+{% endif %}
+
+{{post.body|safe}}
+
+
+{% if user.is_authenticated %}
+
+    {% if user.id == post.author.id %}
+        <a href="{% url 'update_post' post.pk %}" class="btn btn-warning">Edit</a>
+        <br/><br/>
+        <a href="{% url 'delete_post' post.pk %}" class="btn btn-warning">Delete</a></li>
+        <br/><br/>
+    {% endif %}
+{% endif %}
+
+
 
 <br/><br/>
+<hr>
+<br/>
+<form action = "{% url 'like_post' post.pk %}" method ="POST" >
+    {% csrf_token %}
+    <button type = "submit", name="post_id", value = "{{ post.id }}", class ="btn-primary
+    btn-sm">Like</button> - {{ post.likes.count }}
+    Likes
+<hr>
+</form>
+<br/><br/>
+<h2>Comments</h2>
 
-<a href="{% url 'home' %}">Go Change change BACK</a>
+{% if not post.comments.all %}
+    <a href= "{% url 'add_comment' post.pk %}">Be the First One to Comment</a>
+{% else %}
+    {% for comment in post.comments.all %}
+        <strong>{{ comment.name }}-{{ comment.date_added }}</strong>
+        <br/>
+        {{ comment.body }}
+        <br/>
+       
+    {% endfor %}
+
+    <a href= "{% url 'add_comment' post.pk %}">Add Comment</a>
+
+{% endif %}
+
+
+

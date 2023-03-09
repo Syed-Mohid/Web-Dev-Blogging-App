@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Category</h1>
+    <ul>
+
+    {% if category_posts %}
+
+        {% for post in category_posts %}
+
+
+        <li><a href="{% url 'article_details' post.pk %}"> {{post.title}}</a>-{{post.category}}-{{post.author}} 
+
+
+            {{post.body|slice:":100"|safe}}
+        {% endfor %}
+
+    {% else %}
+
+    <h2>Sorry This Category Does not Exist :(((((</h2>
+
+    {% endif %}
+
+{% endblock %}
